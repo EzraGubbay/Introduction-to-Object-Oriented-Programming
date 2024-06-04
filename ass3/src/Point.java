@@ -7,10 +7,11 @@ public class Point {
 
     private final double x; // The point's X coordinate
     private final double y; // The point's Y coordinate
-    public static double epsilon = 0.00001; // Used for threshold comparison of doubles.
+    public static double EPSILON = 0.00001; // Used for threshold comparison of doubles.
 
     /**
      * Parameter constructor
+     *
      * @param x - The X coordinate of the point
      * @param y - The Y coordinate of the point
      */
@@ -21,6 +22,7 @@ public class Point {
 
     /**
      * Calculates the distance of this point to another point.
+     *
      * @param other - Another point to calculate the distance to
      * @return The distance between this point and other point
      */
@@ -30,6 +32,7 @@ public class Point {
 
     /**
      * Checks if the points are equal.
+     *
      * @param other - Another point to compare to this point
      * @return True is the points are equal, false otherwise
      */
@@ -39,6 +42,7 @@ public class Point {
 
     /**
      * Accessor for this point's X coordinate
+     *
      * @return This point's X coordinate
      */
     public double getX() {
@@ -47,6 +51,7 @@ public class Point {
 
     /**
      * Accessor for this point's Y coordinate
+     *
      * @return This point's Y coordinate
      */
     public double getY() {
@@ -55,11 +60,13 @@ public class Point {
 
     /**
      * Auxiliary method for implementing threshold comparison for doubles.
+     *
      * @param m - First double to compare
      * @param n - Second double to compare
      * @return True if the doubles' difference is within the epsilon threshold, false otherwise.
      */
     public static boolean threshold(double m, double n) {
-        return Math.abs(m - n) <= epsilon;
+
+        return Math.abs(m - n) <= EPSILON;
     }
 }

@@ -1,3 +1,8 @@
+/**
+ * @author Ezra Gubbay
+ * ID 209184308
+ * Description - The AbstractArtDrawing class
+ */
 import biuoop.GUI;
 import biuoop.DrawSurface;
 import java.util.Random;
@@ -5,6 +10,14 @@ import java.awt.Color;
 
 public class AbstractArtDrawing {
 
+    /**
+     * Colors the lines as follows:
+     * red - intersection points between lines
+     * blue - the middle points of the lines
+     * green - parts of lines that form a triangle with other lines
+     * @param lines - An array of lines in the GUI
+     * @param d - A DrawSurface object to draw the lines and points on
+     */
     public static void colorPoints(Line[] lines, DrawSurface d){
         Point middle, intersection; // Used to contain middle and intersection points of the lines when drawing them.
         int radius = 3; // We have chosen an arbitrary radius of 5 to draw the colored points and make them visible.
@@ -51,11 +64,20 @@ public class AbstractArtDrawing {
         }
     }
 
+    /**
+     * Receives a line and draws it on the GUI
+     * @param l - A Line object to draw on the GUI
+     * @param d - A DrawSurface object to draw the line on
+     */
     public void drawLine(Line l, DrawSurface d) {
         // drawLine method in biuoop receives only integers and not doubles, therefore we must typecast the x/y values.
         d.drawLine((int) l.start().getX(), (int) l.start().getY(), (int) l.end().getX(), (int) l.end().getY());
     }
 
+    /**
+     * Generates a random line
+     * @return A randomly generated Line object within the limits of the GUI frame.
+     */
     public Line generateRandomLine() {
         Random rand = new Random();
         // get integer in range 1-400
@@ -70,6 +92,9 @@ public class AbstractArtDrawing {
         return new Line(x1, y1, x2, y2);
     }
 
+    /**
+     * Draws 10 random lines on the GUI, with colored intersection and middle points and triangles formed by the lines
+     */
     public void drawRandomLines() {
 
         Line[] lines = new Line[10];
@@ -77,17 +102,24 @@ public class AbstractArtDrawing {
         // create a random-number generator
         // Create a window with the title "Random Lines Example"
         // which is 400 pixels wide and 300 pixels high.
-        GUI gui = new GUI("Random Lines Example", 400, 300);
+        GUI gui = new GUI("AbstractArtDrawing", 400, 300);
         DrawSurface d = gui.getDrawSurface();
+
+        // Generate the lines randomly
         for (int i = 0; i < 10; ++i) {
             lines[i] = generateRandomLine();
             drawLine(lines[i], d);
         }
 
+        // Color the points and lines as needed.
         colorPoints(lines, d);
         gui.show(d);
     }
 
+    /**
+     * Main method
+     * @param args - Command line arguments. None are utilized in this main program
+     */
     public static void main(String[] args) {
         AbstractArtDrawing gui = new AbstractArtDrawing();
         gui.drawRandomLines();

@@ -5,7 +5,8 @@
  */
 
 import biuoop.DrawSurface;
-import java.awt.Color;
+
+import java.awt.*;
 
 public class Ball {
 
@@ -21,90 +22,56 @@ public class Ball {
      */
     private Point location;
     private final int size;
-    private final java.awt.Color color;
+    private final Color color;
     private Velocity velocity;
-    private boolean inGrayRectangle;
-    private Rectangle frame;
-    private final Rectangle gray = new Rectangle(50, 50, 450, 450, Color.GRAY);
 
     // Parameter constructor
-    public Ball(Point center, int r, java.awt.Color color) {
+    public Ball(Point center, int r, Color color) {
         this.location = center;
         this.size = r;
         this.color = color;
-        this.initializeLimits();
     }
 
     // Parameter constructor that receives the location's coordinates instead of a Point object.
-    public Ball(double x, double y, int r, java.awt.Color color) {
+    public Ball(double x, double y, int r, Color color) {
         this.location = new Point(x, y);
         this.size = r;
         this.color = color;
-        this.initializeLimits();
-    }
-
-    /*
-     * Checking if the ball was initialized within the gray rectangle or not.
-     */
-    public void initializeLimits() {
-
-        // Here we are arbitrarily checking if the ball's initial x coordinate is in the range of the gray rectangle.
-        // This is because the ball's x coordinate being within the range of the gray rectangle, is a necessity for the
-        // Ball being within the gray rectangle.
-        if (this.location.getX() >= 50 && this.location.getX() <= 500) {
-            // If the ball is inside the gray rectangle, we use the gray rectangle's limits.
-            this.inGrayRectangle = true;
-            this.frame = this.gray;
-        } else {
-            // If the ball is outside the gray rectangle, we use the GUI limits.
-            this.inGrayRectangle = false;
-            this.frame = new Rectangle(0, 0, 800, 600, null);
-        }
-        System.out.println(this.inGrayRectangle);
     }
 
     /**
      * Accessor for the ball's X coordinate
+     *
      * @return The ball's X coordinate
      */
     public int getX() {
+        
         return (int) this.location.getX();
     }
 
     /**
      * Accessor for the ball's Y coordinate
+     *
      * @return The ball's Y coordinate
      */
     public int getY() {
+        
         return (int) this.location.getY();
     }
 
     /**
-     * Accessor for the ball's radius
-     * @return The ball's radius
-     */
-    public int getSize() {
-        return this.size;
-    }
-
-    /**
-     * Accessor for the ball's Color
-     * @return The ball's Color
-     */
-    public Color getColor() {
-        return this.color;
-    }
-
-    /**
      * Accessor for the ball's Velocity
+     *
      * @return The ball's Velocity
      */
     public Velocity getVelocity() {
+        
         return this.velocity;
     }
 
     /**
      * draw the ball on the given DrawSurface
+     *
      * @param surface - A DrawSurface object to draw on
      */
     public void drawOn(DrawSurface surface) {
@@ -114,6 +81,7 @@ public class Ball {
 
     /**
      * Set the ball's velocity - receives a Velocity object.
+     *
      * @param v - A new velocity
      */
     public void setVelocity(Velocity v) {
@@ -189,26 +157,26 @@ public class Ball {
         // If we have reached here, ball has not collided with gray rectangle, let's check the frame.
         double spacing = getSpacing();
         if (frameIntersections[0] != null) {
-            dx = frameIntersections[0].getX() - edges[0].getX() + spacing * Point.epsilon;
+            dx = frameIntersections[0].getX() - edges[0].getX() + spacing * Point.EPSILON;
             dy = frameIntersections[0].getY() - edges[0].getY();
             Velocity v = new Velocity(dx, dy);
             this.location = v.applyToPoint(this.location);
             changeDx = -1;
         } else if (frameIntersections[1] != null) {
-            dx = frameIntersections[1].getX() - edges[1].getX() + spacing * Point.epsilon;
+            dx = frameIntersections[1].getX() - edges[1].getX() + spacing * Point.EPSILON;
             dy = frameIntersections[1].getY() - edges[1].getY();
             Velocity v = new Velocity(dx, dy);
             this.location = v.applyToPoint(this.location);
             changeDx = -1;
         }
         if (frameIntersections[2] != null) {
-            dx = frameIntersections[2].getX() - edges[2].getX() + spacing * Point.epsilon;
+            dx = frameIntersections[2].getX() - edges[2].getX() + spacing * Point.EPSILON;
             dy = frameIntersections[2].getY() - edges[2].getY();
             Velocity v = new Velocity(dx, dy);
             this.location = v.applyToPoint(this.location);
             changeDy = -1;
         } else if (frameIntersections[3] != null) {
-            dx = frameIntersections[3].getX() - edges[3].getX() + spacing * Point.epsilon;
+            dx = frameIntersections[3].getX() - edges[3].getX() + spacing * Point.EPSILON;
             dy = frameIntersections[3].getY() - edges[3].getY();
             Velocity v = new Velocity(dx, dy);
             this.location = v.applyToPoint(this.location);
@@ -230,10 +198,11 @@ public class Ball {
 
     /**
      * Check if the ball will hit the left or right of the rectangle
+     *
      * @param intersections - Intersections the ball has with some rectangle
-     * @param trajectories - The trajectories of the ball's four edges
-     * @param edges - The leftmost, rightmost, topmost and bottommost points on the ball
-     * @param changeDx - A variable that holds whether the ball currently needs to change in the x direction or not
+     * @param trajectories  - The trajectories of the ball's four edges
+     * @param edges         - The leftmost, rightmost, topmost and bottommost points on the ball
+     * @param changeDx      - A variable that holds whether the ball currently needs to change in the x direction or not
      * @return 1, if the ball's velocity should NOT be changed in the x direction, -1 if it should
      */
     private int checkSides(Point[] intersections, Line[] trajectories, Point[] edges, int changeDx) {
@@ -242,7 +211,7 @@ public class Ball {
 
         // Check if the left has an intersecting trajectory that is closest to the rectangle and move the ball there
         if (validateIntersection(intersections[0], trajectories[0])) { // Checking left
-            dx = intersections[0].getX() - edges[0].getX() + spacing * Point.epsilon;
+            dx = intersections[0].getX() - edges[0].getX() + spacing * Point.EPSILON;
             dy = intersections[0].getY() - edges[0].getY();
             Velocity v = new Velocity(dx, dy);
             this.location = v.applyToPoint(this.location);
@@ -251,7 +220,7 @@ public class Ball {
             // Check if the right has an intersecting trajectory that is closest to the rectangle
             // and move the ball there
             if (validateIntersection(intersections[1], trajectories[1])) { // Checking right
-                dx = intersections[1].getX() - edges[1].getX() - spacing * Point.epsilon;
+                dx = intersections[1].getX() - edges[1].getX() - spacing * Point.EPSILON;
                 dy = intersections[1].getY() - edges[1].getY();
                 this.location = new Velocity(dx, dy).applyToPoint(this.location);
                 changeDx = -1;
@@ -262,11 +231,12 @@ public class Ball {
 
     /**
      * Check if the ball will hit the top or bottom of the rectangle
+     *
      * @param intersections - Intersections the ball has with some rectangle
-     * @param trajectories - The trajectories of the ball's four edges
-     * @param edges - The leftmost, rightmost, topmost and bottommost points on the ball
-     * @param changeDy - A variable that holds whether the ball currently needs to change in the y direction or not
-     * @param changeDx - A variable that holds whether the ball currently needs to change in the x direction or not
+     * @param trajectories  - The trajectories of the ball's four edges
+     * @param edges         - The leftmost, rightmost, topmost and bottommost points on the ball
+     * @param changeDy      - A variable that holds whether the ball currently needs to change in the y direction or not
+     * @param changeDx      - A variable that holds whether the ball currently needs to change in the x direction or not
      * @return 1, if the ball's velocity should NOT be changed in the y direction, -1 if it should
      */
     private int checkTopBottom(Point[] intersections, Line[] trajectories, Point[] edges, int changeDy, int changeDx) {
@@ -280,7 +250,7 @@ public class Ball {
             } else {
                 dx = intersections[2].getX() - edges[2].getX();
             }
-            dy = intersections[2].getY() - edges[2].getY() + spacing * Point.epsilon;
+            dy = intersections[2].getY() - edges[2].getY() + spacing * Point.EPSILON;
             this.location = new Velocity(dx, dy).applyToPoint(this.location);
             changeDy = -1;
         } else {
@@ -292,7 +262,7 @@ public class Ball {
                 } else {
                     dx = intersections[3].getX() - edges[3].getX();
                 }
-                dy = intersections[3].getY() - edges[3].getY() - spacing * Point.epsilon;
+                dy = intersections[3].getY() - edges[3].getY() - spacing * Point.EPSILON;
                 this.location = new Velocity(dx, dy).applyToPoint(this.location);
                 changeDy = -1;
             }
@@ -302,8 +272,9 @@ public class Ball {
 
     /**
      * Validates if an intersection that was found is relevant for intersections with the gray rectangle
+     *
      * @param intersection - The intersection that should be validated
-     * @param trajectory - The trajectory of the edge of the ball that is intersecting
+     * @param trajectory   - The trajectory of the edge of the ball that is intersecting
      * @return True, if the intersection is relevant, False otherwise
      */
     private boolean validateIntersection(Point intersection, Line trajectory) {
@@ -313,6 +284,7 @@ public class Ball {
 
     /**
      * Receives a point and checks if the point is either in the gray rectangle or on it.
+     *
      * @param p - A point that should be validated
      * @return True if the point meets the condition, false otherwise
      */
@@ -326,6 +298,7 @@ public class Ball {
     /**
      * Calculates the appropriate spacing multiplier factor that should be used to space the ball slightly away but
      * very close to the rectangle it is colliding with
+     *
      * @return 0.5 if the ball is inside the gray rectangle, -0.5 otherwise.
      */
     private double getSpacing() {
@@ -334,7 +307,8 @@ public class Ball {
 
     /**
      * Receives a rectangle, trajectories of the edges of the ball
-     * @param r - A rectangle object the ball may be colliding with
+     *
+     * @param r            - A rectangle object the ball may be colliding with
      * @param trajectories - The trajectories of the ball's edge points
      * @return An array of intersections that the ball will have with the rectangle if it proceeds moving with
      * its velocity
@@ -363,6 +337,7 @@ public class Ball {
 
     /**
      * Provides the ball's edge points - leftmost, rightmost, topmost and bottommost points of the ball.
+     *
      * @return An array with the ball's edge points
      */
     private Point[] getBallEdges() {
@@ -376,6 +351,7 @@ public class Ball {
 
     /**
      * Provides the trajectories of the ball's edges
+     *
      * @param edges - An array of Points containing the ball's edge points
      * @return An array of Lines where each line's start is the corresponding edge point of the ball,
      * and each line's end is where the edge will end up if the ball moves along its regular trajectory
@@ -393,6 +369,7 @@ public class Ball {
     /**
      * Receives a single point and returns a line representing the trajectory that point will travel across
      * if the ball's velocity is applied to it
+     *
      * @param start - The point for which the trajectory should be given
      * @return A line representing the trajectory of the point
      */

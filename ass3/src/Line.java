@@ -4,6 +4,9 @@
  * Description - The Line class
  */
 
+import java.awt.Color;
+import java.util.List;
+
 public class Line {
 
     private final Point start; // Starting point of the line
@@ -11,8 +14,9 @@ public class Line {
 
     /**
      * Parameter constructor that receives two Point objects
+     *
      * @param start - The line's start point
-     * @param end - The line's end point
+     * @param end   - The line's end point
      */
     public Line(Point start, Point end) {
         this.start = start;
@@ -21,6 +25,7 @@ public class Line {
 
     /**
      * Parameter constructor that receives two pairs of x,y coordinates
+     *
      * @param x1 - X coordinate of the line's start point
      * @param y1 - Y coordinate of the line's start point
      * @param x2 - X coordinate of the line's end point
@@ -33,7 +38,8 @@ public class Line {
 
     /**
      * Returns the length of the line
-      * @return The length of the line
+     *
+     * @return The length of the line
      */
     public double length() {
         return this.start.distance(this.end);
@@ -41,7 +47,8 @@ public class Line {
 
     /**
      * Returns the middle point of the line
-      * @return The middle point of the line
+     *
+     * @return The middle point of the line
      */
     public Point middle() {
         double middleX = (this.start.getX() + this.end.getX()) / 2;
@@ -51,6 +58,7 @@ public class Line {
 
     /**
      * Returns the start point of the line
+     *
      * @return The start point of the line
      */
     public Point start() {
@@ -59,6 +67,7 @@ public class Line {
 
     /**
      * Returns the end point of the line
+     *
      * @return The end point of the line
      */
     public Point end() {
@@ -67,6 +76,7 @@ public class Line {
 
     /**
      * Returns true if the lines intersect, false otherwise
+     *
      * @param other - Another line to check if it intersects with this line
      * @return True if the lines intersect, false otherwise
      */
@@ -121,6 +131,7 @@ public class Line {
 
     /**
      * Returns true if the lines are equal, false otherwise
+     *
      * @param other - Another line to be compared to this line
      * @return True if the lines are equal, false otherwise
      */
@@ -136,6 +147,7 @@ public class Line {
 
     /**
      * Returns the slope of the current line.
+     *
      * @return The slope of the current line.
      */
     public double getSlope() {
@@ -147,6 +159,7 @@ public class Line {
 
     /**
      * Return true if the current line is vertical or not (meaning slope is infinity).
+     *
      * @return True if the current line is vertical or not (meaning slope is infinity).
      */
     public boolean notHasSlope() {
@@ -157,6 +170,7 @@ public class Line {
     /**
      * Returns intersection point between this line when this line is vertical, and another line (if the intersection
      * exists)
+     *
      * @param other - Another line for which we should find an intersection with this line
      * @return The intersection if one exists, otherwise null
      */
@@ -178,6 +192,7 @@ public class Line {
      * If one of the current line's edges equals one of the other line's edges, and the other edge
      * is not in the other line-segment, returns true.
      * Evaluates the case that the lines are intersecting at exactly one of their edges.
+     *
      * @param other - Another line for which we should find an intersection with this line
      * @return If one of the current line's edges equals one of the other line's edges, and the other edge
      * is not in the other line-segment, returns true, otherwise false.
@@ -197,6 +212,7 @@ public class Line {
 
     /**
      * Check if a point on a line is within a segment of that line.
+     *
      * @param point - A point we want to check
      * @return True if the point is in the segment, false otherwise.
      */
@@ -208,18 +224,41 @@ public class Line {
             // Next, if the point's y value is in range of the line segment, return true, otherwise, false.
             return ((point.getY() <= this.start.getY() && point.getY() >= this.end.getY()) ||
                     (point.getY() >= this.start.getY() && point.getY() <= this.end.getY()));
-                    //!Point.threshold(point.getY(), this.start.getY()) && Point.threshold(point.getY(), this.end.getY());
+            //!Point.threshold(point.getY(), this.start.getY()) && Point.threshold(point.getY(), this.end.getY());
         }
         return false;
     }
 
     /**
      * Receives two lines. Checks if this line is part of a triangle with the other two lines.
+     *
      * @param l1 - The first line to be checked for the triangle
      * @param l2 - The second line to be checked for the triangle
      * @return If this line and the two given lines form a triangle, returns true. Otherwise, false.
      */
     public boolean isInTriangle(Line l1, Line l2) {
         return intersectionWith(l1) != null && intersectionWith(l2) != null && l1.intersectionWith(l2) != null;
+    }
+
+    public Point closestIntersectionToStartOfLine(Rectangle rect) {
+        Point closest;
+        double minDistance;
+        List<Point> intersections = rect.intersectionPoints(this);
+        // If there are no intersections, return null.
+        if (intersections.isEmpty()) {
+            return null;
+        }
+        closest = intersections.get(0);
+        minDistance = closest.distance(this.start());
+
+        for (Point intersection : intersections) {
+            if (intersection.distance(this.start()) + Point.EPSILON < minDistance) {
+                closest = intersection;
+                minDistance = intersection.distance(this.start());
+            }
+        }
+
+        // If we reached here, then this line intersects with the rectangle.
+        return closest;
     }
 }
