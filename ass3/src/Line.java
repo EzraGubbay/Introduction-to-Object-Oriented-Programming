@@ -1,7 +1,7 @@
 /**
- * @author Ezra Gubbay
- * ID 209184308
- * Description - The Line class
+ * Name: Ezra Gubbay
+ * ID: 209184308
+ * Description - The Line class. Represents a line-segment with a start point and end point.
  */
 
 import java.awt.Color;
@@ -93,18 +93,28 @@ public class Line {
                 other.pointInSegment(this.start());
     }
 
-    // Returns true if this 2 lines intersect with this line, false otherwise
+    /**
+     * Checks if this line is intersecting with another two given lines. Lines are also intersecting if they are
+     * infinitely intersecting.
+     * @param other1 - The first line to check
+     * @param other2 - The second line to check
+     * @return True if the line is intersecting with both lines, false otherwise.
+     */
     public boolean isIntersecting(Line other1, Line other2) {
         return isIntersecting(other1) && isIntersecting(other2);
     }
 
-    /* Returns the intersection point if the lines intersect,
-     * and null otherwise.
+    /**
+     * Returns the intersection point if the lines intersect, and null otherwise.
+     * @param other - The other line to find the intersection with (if it exists).
+     * @return The intersection point if the lines intersect, and null otherwise.
      */
     public Point intersectionWith(Line other) {
         // Edge case: at least one of the lines is vertical.
         if (this.notHasSlope()) {
             return this.verticalIntersection(other);
+        } else if (other.notHasSlope()) {
+            return other.verticalIntersection(this);
         }
 
         // Lines are definitely not vertical - get the slopes of the lines.
@@ -183,7 +193,7 @@ public class Line {
         double intersectionX = this.start.getX();
         double intersectionY = otherSlope * (intersectionX - other.start().getX()) + other.start().getY();
         Point intersection = new Point(intersectionX, intersectionY);
-        if (other.pointInSegment(intersection))
+        if (other.pointInSegment(intersection) && this.pointInSegment(intersection))
             return intersection;
         return null;
     }
@@ -218,13 +228,12 @@ public class Line {
      */
     public boolean pointInSegment(Point point) {
         // First check if the point's x value is in range of the line segment.
-        if (((point.getX() <= this.start.getX() && point.getX() >= this.end.getX()) ||
-                (point.getX() >= this.start.getX() && point.getX() <= this.end.getX()))) { //!Point.threshold(point.getX(), this.start.getX()) && !Point.threshold(point.getX(), this.end.getX())
+        if ((Point.lessThanOrEqualThreshold(point.getX(), this.start.getX()) && Point.greaterThanOrEqualThreshold(point.getX(), this.end.getX())) ||
+                (Point.greaterThanOrEqualThreshold(point.getX(), this.start.getX()) && Point.lessThanOrEqualThreshold(point.getX(), this.end.getX()))) {
 
             // Next, if the point's y value is in range of the line segment, return true, otherwise, false.
-            return ((point.getY() <= this.start.getY() && point.getY() >= this.end.getY()) ||
-                    (point.getY() >= this.start.getY() && point.getY() <= this.end.getY()));
-            //!Point.threshold(point.getY(), this.start.getY()) && Point.threshold(point.getY(), this.end.getY());
+            return ((Point.lessThanOrEqualThreshold(point.getY(), this.start.getY()) && Point.greaterThanOrEqualThreshold(point.getY(), this.end.getY())) ||
+                    (Point.greaterThanOrEqualThreshold(point.getY(), this.start.getY()) && Point.lessThanOrEqualThreshold(point.getY(), this.end.getY())));
         }
         return false;
     }
@@ -240,6 +249,11 @@ public class Line {
         return intersectionWith(l1) != null && intersectionWith(l2) != null && l1.intersectionWith(l2) != null;
     }
 
+    /**
+     * Finds the intersection point between this line and a given rectangle that is closest to the start of this line.
+     * @param rect - The rectangle to find the intersection with (if it exists).
+     * @return The intersection point between this line and the given rectangle
+     */
     public Point closestIntersectionToStartOfLine(Rectangle rect) {
         Point closest;
         double minDistance;

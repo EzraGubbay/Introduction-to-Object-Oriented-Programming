@@ -4,16 +4,15 @@
  * Description - The Rectangle class
  */
 
-import biuoop.DrawSurface;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Rectangle {
 
-    private Point upperLeft; // The upper left point of the rectangle
-    private double width; // Rectangle's width
-    private double height; // Rectangle's height
+    protected Point upperLeft; // The upper left point of the rectangle
+    private final double width; // Rectangle's width
+    private final double height; // Rectangle's height
+    private static int count = 0;
 
     /**
      * Create a new rectangle with location and width/height.
@@ -57,6 +56,7 @@ public class Rectangle {
      * @return A (possibly empty) list of intersection points with the specified line.
      */
     public List<Point> intersectionPoints(Line line) {
+        count++;
         Line[] sides = this.getRectangleSides();
         List<Point> intersections = new ArrayList<>();
 

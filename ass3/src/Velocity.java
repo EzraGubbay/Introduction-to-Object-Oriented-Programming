@@ -5,8 +5,8 @@
  */
 public class Velocity {
 
-    private final double dx;
-    private final double dy;
+    private final double dx; // How much an object with this Velocity should move horizontally.
+    private final double dy; // How much an object with this Velocity should move vertically.
 
     /**
      * Parameter constructor

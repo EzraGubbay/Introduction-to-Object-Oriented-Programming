@@ -65,8 +65,31 @@ public class Point {
      * @param n - Second double to compare
      * @return True if the doubles' difference is within the epsilon threshold, false otherwise.
      */
-    public static boolean threshold(double m, double n) {
+    public static boolean threshold(double n, double m) {
 
         return Math.abs(m - n) <= EPSILON;
+    }
+
+    public static boolean nLessThanMThreshold(double n, double m) {
+        return m - EPSILON > n;
+    }
+
+    public static boolean nGreaterThanMThreshold(double n, double m) {
+        return nLessThanMThreshold(m, n);
+    }
+
+    public static boolean lessThanOrEqualThreshold(double n, double m) {
+        return threshold(n, m) || nLessThanMThreshold(n, m);
+    }
+
+    public static boolean greaterThanOrEqualThreshold(double n, double m) {
+        return threshold(n, m) || nGreaterThanMThreshold(n, m);
+    }
+
+    /**
+     * toString method. Prints the X and Y coordinate values of this point.
+     */
+    public String toString(){
+        return "(" + this.x + ", " + this.y + ")";
     }
 }
