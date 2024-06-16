@@ -1,9 +1,8 @@
 /**
- * Name: Ezra Gubbay
+ * Name: Ezra Gubbay.
  * ID: 209184308
  * Description - Collidable interface. Represents an object in the game that can be collided with.
  */
-
 public interface Collidable {
 
     /**
@@ -12,8 +11,7 @@ public interface Collidable {
     Rectangle getCollisionRectangle();
 
      /**
-      * Notify the object that we collided with it at collisionPoint with
-      * a given velocity.
+      * Notify the object that we collided with it at collisionPoint with a given velocity.
       * The return is the new velocity expected after the hit (based on
       * the force the object inflicted on us).
       * @param collisionPoint - The point of the collision

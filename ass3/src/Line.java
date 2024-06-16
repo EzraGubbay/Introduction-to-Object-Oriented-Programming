@@ -1,19 +1,17 @@
+import java.util.List;
+
 /**
- * Name: Ezra Gubbay
+ * Name: Ezra Gubbay.
  * ID: 209184308
  * Description - The Line class. Represents a line-segment with a start point and end point.
  */
-
-import java.awt.Color;
-import java.util.List;
-
 public class Line {
 
     private final Point start; // Starting point of the line
     private final Point end; // End point of the line
 
     /**
-     * Parameter constructor that receives two Point objects
+     * Parameter constructor that receives two Point objects.
      *
      * @param start - The line's start point
      * @param end   - The line's end point
@@ -24,7 +22,7 @@ public class Line {
     }
 
     /**
-     * Parameter constructor that receives two pairs of x,y coordinates
+     * Parameter constructor that receives two pairs of x,y coordinates.
      *
      * @param x1 - X coordinate of the line's start point
      * @param y1 - Y coordinate of the line's start point
@@ -37,7 +35,7 @@ public class Line {
     }
 
     /**
-     * Returns the length of the line
+     * Returns the length of the line.
      *
      * @return The length of the line
      */
@@ -46,7 +44,7 @@ public class Line {
     }
 
     /**
-     * Returns the middle point of the line
+     * Returns the middle point of the line.
      *
      * @return The middle point of the line
      */
@@ -57,7 +55,7 @@ public class Line {
     }
 
     /**
-     * Returns the start point of the line
+     * Returns the start point of the line.
      *
      * @return The start point of the line
      */
@@ -66,7 +64,7 @@ public class Line {
     }
 
     /**
-     * Returns the end point of the line
+     * Returns the end point of the line.
      *
      * @return The end point of the line
      */
@@ -75,7 +73,7 @@ public class Line {
     }
 
     /**
-     * Returns true if the lines intersect, false otherwise
+     * Returns true if the lines intersect, false otherwise.
      *
      * @param other - Another line to check if it intersects with this line
      * @return True if the lines intersect, false otherwise
@@ -89,8 +87,8 @@ public class Line {
         // Considering all possible cases, we only need to check if three of the four points of the two line-segments
         // are in the other line. We also check if the lines are equal as pointInSegment is not inclusive of the edges.
         // If this evaluates to true, there are infinite intersections between the lines.
-        return this.equals(other) || this.pointInSegment(other.start()) || this.pointInSegment(other.end()) ||
-                other.pointInSegment(this.start());
+        return this.equals(other) || this.pointInSegment(other.start()) || this.pointInSegment(other.end())
+                || other.pointInSegment(this.start());
     }
 
     /**
@@ -134,23 +132,24 @@ public class Line {
         Point intersection = new Point(intersectionX, intersectionY);
 
         // If the intersection points of the lines are in both line-segments, return true. Otherwise, return null.
-        if (this.pointInSegment(intersection) && other.pointInSegment(intersection))
+        if (this.pointInSegment(intersection) && other.pointInSegment(intersection)) {
             return intersection;
+        }
         return null;
     }
 
     /**
-     * Returns true if the lines are equal, false otherwise
+     * Returns true if the lines are equal, false otherwise.
      *
      * @param other - Another line to be compared to this line
      * @return True if the lines are equal, false otherwise
      */
     public boolean equals(Line other) {
 
-        boolean same = this.start.equals(other.start()) &&
-                this.end.equals(other.end());
-        boolean opposite = this.start.equals(other.end()) &&
-                this.end.equals(other.start());
+        boolean same = this.start.equals(other.start())
+                && this.end.equals(other.end());
+        boolean opposite = this.start.equals(other.end())
+                && this.end.equals(other.start());
 
         return same || opposite;
     }
@@ -163,8 +162,8 @@ public class Line {
     public double getSlope() {
         // Edge case: The difference of the line's x values is zero.
         // This edge case is solved by calling hasSlope first.
-        return (this.end.getY() - this.start.getY()) /
-                (this.end.getX() - this.start.getX());
+        return (this.end.getY() - this.start.getY())
+                / (this.end.getX() - this.start.getX());
     }
 
     /**
@@ -179,7 +178,7 @@ public class Line {
 
     /**
      * Returns intersection point between this line when this line is vertical, and another line (if the intersection
-     * exists)
+     * exists).
      *
      * @param other - Another line for which we should find an intersection with this line
      * @return The intersection if one exists, otherwise null
@@ -193,8 +192,9 @@ public class Line {
         double intersectionX = this.start.getX();
         double intersectionY = otherSlope * (intersectionX - other.start().getX()) + other.start().getY();
         Point intersection = new Point(intersectionX, intersectionY);
-        if (other.pointInSegment(intersection) && this.pointInSegment(intersection))
+        if (other.pointInSegment(intersection) && this.pointInSegment(intersection)) {
             return intersection;
+        }
         return null;
     }
 
@@ -209,12 +209,14 @@ public class Line {
      */
     public Point isEdgeIntersection(Line other) {
         if (this.start.equals(other.start()) || this.start.equals(other.end())) {
-            if (!other.pointInSegment(this.end) && !this.end.equals(other.start()) && !this.end.equals(other.end()))
+            if (!other.pointInSegment(this.end) && !this.end.equals(other.start()) && !this.end.equals(other.end())) {
                 return this.start;
+            }
         } else if (this.end.equals(other.start()) || this.end.equals(other.end())) {
-            if (!other.pointInSegment(this.start) && !this.start.equals(other.start()) &&
-                    !this.start.equals(other.end()))
+            if (!other.pointInSegment(this.start) && !this.start.equals(other.start())
+                    && !this.start.equals(other.end())) {
                 return this.end;
+            }
         }
 
         return null;
@@ -228,12 +230,16 @@ public class Line {
      */
     public boolean pointInSegment(Point point) {
         // First check if the point's x value is in range of the line segment.
-        if ((Point.lessThanOrEqualThreshold(point.getX(), this.start.getX()) && Point.greaterThanOrEqualThreshold(point.getX(), this.end.getX())) ||
-                (Point.greaterThanOrEqualThreshold(point.getX(), this.start.getX()) && Point.lessThanOrEqualThreshold(point.getX(), this.end.getX()))) {
+        if ((Point.lessThanOrEqualThreshold(point.getX(), this.start.getX())
+                && Point.greaterThanOrEqualThreshold(point.getX(), this.end.getX()))
+                || (Point.greaterThanOrEqualThreshold(point.getX(), this.start.getX())
+                && Point.lessThanOrEqualThreshold(point.getX(), this.end.getX()))) {
 
             // Next, if the point's y value is in range of the line segment, return true, otherwise, false.
-            return ((Point.lessThanOrEqualThreshold(point.getY(), this.start.getY()) && Point.greaterThanOrEqualThreshold(point.getY(), this.end.getY())) ||
-                    (Point.greaterThanOrEqualThreshold(point.getY(), this.start.getY()) && Point.lessThanOrEqualThreshold(point.getY(), this.end.getY())));
+            return ((Point.lessThanOrEqualThreshold(point.getY(), this.start.getY())
+                    && Point.greaterThanOrEqualThreshold(point.getY(), this.end.getY()))
+                    || (Point.greaterThanOrEqualThreshold(point.getY(), this.start.getY())
+                    && Point.lessThanOrEqualThreshold(point.getY(), this.end.getY())));
         }
         return false;
     }
@@ -257,6 +263,7 @@ public class Line {
     public Point closestIntersectionToStartOfLine(Rectangle rect) {
         Point closest;
         double minDistance;
+        double epsilon = Point.getEpsilon();
         List<Point> intersections = rect.intersectionPoints(this);
         // If there are no intersections, return null.
         if (intersections.isEmpty()) {
@@ -266,7 +273,7 @@ public class Line {
         minDistance = closest.distance(this.start());
 
         for (Point intersection : intersections) {
-            if (intersection.distance(this.start()) + Point.EPSILON < minDistance) {
+            if (intersection.distance(this.start()) + epsilon < minDistance) {
                 closest = intersection;
                 minDistance = intersection.distance(this.start());
             }

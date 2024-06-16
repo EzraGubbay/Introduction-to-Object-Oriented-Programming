@@ -1,18 +1,16 @@
+import java.util.ArrayList;
+
 /**
- * Name: Ezra Gubbay
+ * Name: Ezra Gubbay.
  * ID: 209184308
  * Description - The Game Environment. Manages the logic in the game and calculates collision points for Ball.
  */
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 public class GameEnvironment {
 
     private final ArrayList<Collidable> collidables; // A list of all collidable objects in the game.
 
     /**
-     * Parameter constructor
+     * Parameter constructor.
      * @param collidables - A list of all collidable objects in the game.
      */
     public GameEnvironment(ArrayList<Collidable> collidables) {
@@ -33,6 +31,7 @@ public class GameEnvironment {
      * in this collection, return null. Else, return the information
      * about the closest collision that is going to occur.
      * @param trajectory - The trajectory the Ball is about to travel assuming it doesn't collide with anything.
+     * @return If a collision occurred, a collisionInfo object with the information about the collision, otherwise null
      */
     public CollisionInfo getClosestCollision(Line trajectory) {
         ArrayList<CollisionInfo> collisionInfos = new ArrayList<>();
@@ -44,12 +43,6 @@ public class GameEnvironment {
         // Get all the closest collision points between the trajectory of the Ball and each collidable object (if any).
         for (Collidable c : this.collidables) {
             tempPoint = trajectory.closestIntersectionToStartOfLine(c.getCollisionRectangle());
-            //DEBUG
-            if (tempPoint != null) {
-                System.out.println("Trajectory: Start - X: " + trajectory.start().getX() + ", Y: " + trajectory.start().getY() + " End - X: " + trajectory.end().getX() + ", Y: " + trajectory.end().getY());
-                System.out.println("Collision Point - X: " + tempPoint.getX() + ", Y: " + tempPoint.getY());
-            }
-            //DEBUG
             if (tempPoint != null) {
                 collisionInfos.add(new CollisionInfo(tempPoint, c));
             }
@@ -66,7 +59,8 @@ public class GameEnvironment {
         closestDistance = trajectory.start().distance(closestCollision.collisionPoint());
 
         for (CollisionInfo ci : collisionInfos) {
-            if (trajectory.start().distance(ci.collisionPoint()) + Point.EPSILON < closestDistance) {
+            double epsilon = Point.getEpsilon();
+            if (trajectory.start().distance(ci.collisionPoint()) + epsilon < closestDistance) {
                 closestCollision = ci;
                 closestDistance = trajectory.start().distance(ci.collisionPoint());
             }

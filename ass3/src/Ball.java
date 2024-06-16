@@ -1,14 +1,15 @@
-/**
- * @author Ezra Gubbay
- * ID 209184308
- * Description: The Ball class
- */
+
 
 import biuoop.DrawSurface;
 
 import java.awt.Color;
 import java.util.Random;
 
+/**
+ * Name: Ezra Gubbay.
+ * ID: 209184308
+ * Description: The Ball class
+ */
 public class Ball implements Sprite {
 
     /**
@@ -28,7 +29,7 @@ public class Ball implements Sprite {
     private GameEnvironment ge;
 
     /**
-     * Parameter constructor
+     * Parameter constructor.
      *
      * @param center - The location of the Ball
      * @param r      - The radius of the Ball
@@ -39,12 +40,10 @@ public class Ball implements Sprite {
         this.size = r;
         this.color = color;
         this.setVelocity(this.calculateInitialVelocity());
-//        this.setVelocity(Velocity.fromAngleAndSpeed(360, 5));
-//        System.out.println("Velocity - DX: " + this.getVelocity().getDx() + " DY: " + this.getVelocity().getDy());
     }
 
     /**
-     * Parameter constructor
+     * Parameter constructor.
      *
      * @param x     - The X coordinate of the location of the Ball
      * @param y     - The Y coordinate of the location of the Ball
@@ -56,8 +55,6 @@ public class Ball implements Sprite {
         this.size = r;
         this.color = color;
         this.setVelocity(this.calculateInitialVelocity());
-//        this.setVelocity(Velocity.fromAngleAndSpeed(360, 5));
-//        System.out.println("Velocity - DX: " + this.getVelocity().getDx() + " DY: " + this.getVelocity().getDy());
     }
 
     /**
@@ -81,7 +78,7 @@ public class Ball implements Sprite {
     }
 
     /**
-     * Accessor for the ball's X coordinate
+     * Accessor for the ball's X coordinate.
      *
      * @return The ball's X coordinate
      */
@@ -91,7 +88,7 @@ public class Ball implements Sprite {
     }
 
     /**
-     * Accessor for the ball's Y coordinate
+     * Accessor for the ball's Y coordinate.
      *
      * @return The ball's Y coordinate
      */
@@ -101,7 +98,7 @@ public class Ball implements Sprite {
     }
 
     /**
-     * Accessor for the ball's Velocity
+     * Accessor for the ball's Velocity.
      *
      * @return The ball's Velocity
      */
@@ -111,7 +108,7 @@ public class Ball implements Sprite {
     }
 
     /**
-     * draw the ball on the given DrawSurface
+     * Draw the ball on the given DrawSurface.
      *
      * @param surface - A DrawSurface object to draw on
      */
@@ -158,6 +155,10 @@ public class Ball implements Sprite {
         this.velocity = new Velocity(dx, dy);
     }
 
+    /**
+     * Notifies the Ball of its Game Environment.
+     * @param ge - The Ball's Game Environment.
+     */
     public void setGameEnvironment(GameEnvironment ge) {
         this.ge = ge;
     }
@@ -166,7 +167,6 @@ public class Ball implements Sprite {
      * Moves the ball one step with the appropriate velocity.
      */
     public void moveOneStep() {
-//        System.out.println("Moving " + this.location.getX() + " " + this.location.getY());
         Line trajectory = new Line(this.location, this.getVelocity().applyToPoint(this.location));
         CollisionInfo collision = this.ge.getClosestCollision(trajectory);
 
@@ -188,7 +188,7 @@ public class Ball implements Sprite {
     }
 
     /**
-     * Calculates the value of a one coordinate that the ball will move to when moving almost to a collision coordinate
+     * Calculates the value of a one coordinate that the ball will move to when moving almost to a collision coordinate.
      *
      * @param currentCoord   - The coordinate value (X or Y) of the Ball's current location.
      * @param collisionCoord - The coordinate value (X or Y, corresponding with currentCoord), of the collision point.
@@ -196,7 +196,8 @@ public class Ball implements Sprite {
      */
     private double getAlmostCoordinate(double currentCoord, double collisionCoord) {
         int epsilonMultiplier = 1000;
-        return currentCoord + Point.EPSILON < collisionCoord ? collisionCoord - epsilonMultiplier * Point.EPSILON
-                : collisionCoord + epsilonMultiplier * Point.EPSILON;
+        double epsilon = Point.getEpsilon();
+        return currentCoord + epsilon < collisionCoord ? collisionCoord - epsilonMultiplier * epsilon
+                : collisionCoord + epsilonMultiplier * epsilon;
     }
 }

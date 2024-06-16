@@ -1,15 +1,20 @@
 import biuoop.DrawSurface;
 
+/**
+ * Name: Ezra Gubbay.
+ * ID: 209184308
+ * Description - The Sprite interface. Represents an item that can be drawn on the GUI.
+ */
 public interface Sprite {
 
     /**
-     * Draw the sprite to the screen
+     * Draw the sprite to the screen.
      * @param d - A DrawSurface object to draw on
      */
     void drawOn(DrawSurface d);
 
     /**
-     * Notify the sprite that time has passed
+     * Notify the sprite that time has passed.
      */
     void timePassed();
 

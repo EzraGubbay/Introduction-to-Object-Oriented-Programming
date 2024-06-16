@@ -1,4 +1,14 @@
+/**
+ * Name: Ezra Gubbay.
+ * ID: 209184308
+ * Description - The Ass3Game class. Creates a game and plays it.
+ */
 public class Ass3Game {
+
+    /**
+     * Creates a game and plays it.
+     * @param args - Command-line arguments. This variable is not used in this program.
+     */
     public static void main(String[] args) {
         Game game = new Game();
         game.initialize();

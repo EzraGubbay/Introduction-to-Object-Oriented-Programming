@@ -1,15 +1,14 @@
-/**
- * @author Ezra Gubbay
- * ID 209184308
- * Description - The Rectangle class
- */
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Name: Ezra Gubbay.
+ * ID 209184308
+ * Description - The Rectangle class
+ */
 public class Rectangle {
 
-    protected Point upperLeft; // The upper left point of the rectangle
+    private Point upperLeft; // The upper left point of the rectangle
     private final double width; // Rectangle's width
     private final double height; // Rectangle's height
     private static int count = 0;
@@ -48,6 +47,14 @@ public class Rectangle {
      */
     public Point getUpperLeft() {
         return this.upperLeft;
+    }
+
+    /**
+     * Receives a new point and sets the current upper left point to the received point.
+     * @param upperLeft - The new point to set the Rectangle's upper left point.
+     */
+    public void setUpperLeft(Point upperLeft) {
+        this.upperLeft = upperLeft;
     }
 
     /**

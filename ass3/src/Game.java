@@ -1,10 +1,15 @@
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
-
 import java.awt.Color;
 import java.util.ArrayList;
 
+/**
+ * Name: Ezra Gubbay.
+ * ID: 209184308
+ * Description - The Game class. Represents a game, and can initialize and run the game.
+ * Manages passing of time in the game and notifying pieces to draw themselves.
+ */
 public class Game {
 
     private final SpriteCollection sprites; // The collection of sprites in the game
@@ -12,16 +17,27 @@ public class Game {
     private GUI gui;
     private Sleeper sleeper;
 
-
+    /**
+     * Constructor.
+     * Initializes the sprite collection and the game environment
+     */
     public Game() {
         sprites = new SpriteCollection();
         environment = new GameEnvironment(new ArrayList<Collidable>());
     }
 
+    /**
+     * Adds a collidable to the Game Environment's list of collidables.
+     * @param c - A collidable to be added to the list
+     */
     public void addCollidable(Collidable c) {
         this.environment.addCollidable(c);
     }
 
+    /**
+     * Adds a sprite to the Game's list of sprites.
+     * @param s - A sprite to be added to the list
+     */
     public void addSprite(Sprite s) {
         this.sprites.addSprite(s);
     }

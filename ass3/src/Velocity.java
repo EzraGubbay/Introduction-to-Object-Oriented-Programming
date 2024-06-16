@@ -1,7 +1,7 @@
 /**
- * @author Ezra Gubbay
- * ID 209184308
- * Description - The Velocity class
+ * Name: Ezra Gubbay.
+ * ID: 209184308
+ * Description - The Velocity class. Represents the speed and direction of a Ball.
  */
 public class Velocity {
 
@@ -9,7 +9,7 @@ public class Velocity {
     private final double dy; // How much an object with this Velocity should move vertically.
 
     /**
-     * Parameter constructor
+     * Parameter constructor.
      * @param dx - The horizontal change in the X coordinate
      * @param dy - The horizontal change in the Y coordinate
      */
@@ -19,7 +19,7 @@ public class Velocity {
     }
 
     /**
-     * Accessor for this velocity's dx value
+     * Accessor for this velocity's dx value.
      * @return This velocity's dx value
      */
     public double getDx() {
@@ -27,7 +27,7 @@ public class Velocity {
     }
 
     /**
-     * Accessor for this velocity's dy value
+     * Accessor for this velocity's dy value.
      * @return This velocity's dy value
      */
     public double getDy() {
@@ -35,7 +35,7 @@ public class Velocity {
     }
 
     /**
-     * Take a point with position (x,y) and return a new point with position (x+dx, y+dy)
+     * Take a point with position (x,y) and return a new point with position (x+dx, y+dy).
      * @param p - The point this velocity should be applied to
      * @return The new point with the applied velocity
      */

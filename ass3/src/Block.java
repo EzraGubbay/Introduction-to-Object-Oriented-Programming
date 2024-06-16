@@ -1,20 +1,18 @@
 import biuoop.DrawSurface;
-
 import java.awt.Color;
 
 /**
- * Name: Ezra Gubbay
+ * Name: Ezra Gubbay.
  * ID: 209184308
  * Description - A collidable, rectangular block in the game. Can tell Ball what velocity it should have if it is
  * collided with.
  */
-
 public class Block extends Rectangle implements Collidable, Sprite {
 
     private Color color;
 
     /**
-     * Parameter constructor
+     * Parameter constructor.
      *
      * @param upperLeft - The upper-left point of the Block's rectangle
      * @param width     - The width of the Block's rectangle
@@ -26,6 +24,22 @@ public class Block extends Rectangle implements Collidable, Sprite {
     }
 
     /**
+     * Accessor for the rectangle's upper left point.
+     * @return The rectangle's upper left point.
+     */
+    public Point getUpperLeft() {
+        return super.getUpperLeft();
+    }
+
+    /**
+     * Receives a new point and sets the current upper left point to the received point.
+     * @param upperLeft - The new point to set the Block's upper left point.
+     */
+    public void setUpperLeft(Point upperLeft) {
+        super.setUpperLeft(upperLeft);
+    }
+
+    /**
      * Setter for the Block's color.
      * @param color - The color the Block should change to.
      */
@@ -34,7 +48,7 @@ public class Block extends Rectangle implements Collidable, Sprite {
     }
 
     /**
-     * draw the ball on the given DrawSurface
+     * Draw the ball on the given DrawSurface.
      *
      * @param surface - A DrawSurface object to draw on
      */
@@ -52,7 +66,7 @@ public class Block extends Rectangle implements Collidable, Sprite {
     }
 
     /**
-     * Notify the block that time has passed
+     * Notify the block that time has passed.
      */
     @Override
     public void timePassed() {
@@ -68,8 +82,7 @@ public class Block extends Rectangle implements Collidable, Sprite {
     }
 
     /**
-     * Notify the object that we collided with it at collisionPoint with
-     * a given velocity.
+     * Notify the object that we collided with it at collisionPoint with a given velocity.
      * The return is the new velocity expected after the hit (based on the force the object inflicted on us).
      *
      * @param collisionPoint  - The point of the collision
@@ -82,13 +95,13 @@ public class Block extends Rectangle implements Collidable, Sprite {
         // Check if the collisionPoint hit Block horizontally or vertically.
         // We are checking both statement separately - this resolves an edge case where the Ball collides with a corner,
         // In this case, it should return exactly the way it came - velocity will be flipped in both directions.
-        if (Point.threshold(collisionPoint.getX(), this.getUpperLeft().getX()) ||
-                Point.threshold(collisionPoint.getX(), this.getUpperLeft().getX() + this.getWidth())) {
+        if (Point.threshold(collisionPoint.getX(), this.getUpperLeft().getX())
+                || Point.threshold(collisionPoint.getX(), this.getUpperLeft().getX() + this.getWidth())) {
             // Collision is horizontal
             dx = -1 * currentVelocity.getDx();
         }
-        if (Point.threshold(collisionPoint.getY(), this.getUpperLeft().getY()) ||
-                Point.threshold(collisionPoint.getY(), this.getUpperLeft().getY() + this.getHeight())) {
+        if (Point.threshold(collisionPoint.getY(), this.getUpperLeft().getY())
+                || Point.threshold(collisionPoint.getY(), this.getUpperLeft().getY() + this.getHeight())) {
             // Collision is vertical
             dy = -1 * currentVelocity.getDy();
         }
