@@ -24,9 +24,7 @@ public abstract class BinaryExpression extends BaseExpression {
     public abstract Boolean evaluate(Map<String, Boolean> assignment) throws Exception;
 
     @Override
-    public Boolean evaluate() throws Exception {
-        return super.evaluate();
-    }
+    public abstract Boolean evaluate() throws Exception;
 
     @Override
     public List<String> getVariables() {
@@ -41,13 +39,18 @@ public abstract class BinaryExpression extends BaseExpression {
     public abstract String toString();
 
     @Override
-    public Expression assign(String var, Expression expression) {
-        return new And(this.left.assign(var, expression), this.right.assign(var, expression));
-    }
+    public abstract Expression assign(String var, Expression expression);
 
     @Override
     public abstract Expression nandify();
 
     @Override
     public abstract Expression norify();
+
+    @Override
+    public abstract Expression simplify();
+
+    protected boolean equals(Expression left, Expression right) {
+        return this.left.toString().equals(this.right.toString());
+    }
 }

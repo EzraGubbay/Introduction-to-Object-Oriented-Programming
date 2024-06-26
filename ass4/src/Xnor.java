@@ -16,7 +16,13 @@ public class Xnor extends BinaryExpression {
 
     @Override
     public Boolean evaluate() throws Exception {
-        return super.evaluate();
+        Boolean left, right;
+        // Try evaluating left and right expressions, assuming they are only comprised of truth values.
+        // If one of the expressions has at least one variable, exception will be thrown here.
+        left = super.getLeft().evaluate();
+        right = super.getRight().evaluate();
+        // And operator logic.
+        return !((left && !right) || (!left && right));
     }
 
     @Override
@@ -53,5 +59,15 @@ public class Xnor extends BinaryExpression {
          */
         return new Nor(new Nor(super.getLeft().norify(), new Nor(super.getLeft().norify(), super.getRight().norify())),
                 new Nor(super.getRight().norify(), new Nor(super.getLeft().norify(), super.getRight().norify())));
+    }
+
+    @Override
+    public Expression simplify() {
+        Expression simpleLeft = super.getLeft().simplify();
+        Expression simpleRight = super.getRight().simplify();
+
+        // If the expressions are the same, we will simplify Xnor to true.
+        // Otherwise, we will return a new simplified Xnor expression.
+        return super.equals(simpleLeft, simpleRight) ? new Val(true) : new Xnor(simpleLeft, simpleRight);
     }
 }

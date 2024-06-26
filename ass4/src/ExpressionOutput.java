@@ -29,10 +29,8 @@ public class ExpressionOutput {
             System.out.println(ex.evaluate(map));
         } catch (Exception ignored) {
         }
-        System.out.println("Nandify Test:\n" + ex.nandify().toString());
-        System.out.println("\nLegit String: ");
-        System.out.println("((((x A F) A (x A F)) A ((((((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))) A (((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z))))) A ((((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))) A (((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))))) A (((((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))) A (((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z))))) A ((((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))) A (((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))))))) A ((x A F) A (((((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))) A (((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z))))) A ((((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))) A (((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z))))))))");
-        //System.out.println(ex.norify().toString());
-//        System.out.println(ex.simplify().toString());
+        System.out.println(ex.nandify().toString());
+        System.out.println(ex.norify().toString());
+        System.out.println(ex.simplify().toString());
     }
 }

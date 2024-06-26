@@ -3,19 +3,21 @@ import java.util.Map;
 
 public abstract class UnaryExpression extends BaseExpression {
 
-    protected Expression expression;
+    private final Expression expression;
 
     public UnaryExpression(Expression expression) {
         this.expression = expression;
+    }
+
+    protected Expression getExpression() {
+        return this.expression;
     }
 
     @Override
     public abstract Boolean evaluate(Map<String, Boolean> assignment) throws Exception;
 
     @Override
-    public Boolean evaluate() throws Exception {
-        return super.evaluate();
-    }
+    public abstract Boolean evaluate() throws Exception;
 
     @Override
     public List<String> getVariables() {
@@ -33,4 +35,7 @@ public abstract class UnaryExpression extends BaseExpression {
 
     @Override
     public abstract Expression norify();
+
+    @Override
+    public abstract Expression simplify();
 }

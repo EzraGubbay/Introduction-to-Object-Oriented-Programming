@@ -89,4 +89,8 @@ public class Var implements Expression {
         //return new Nor(new Nor(new Var(this.var), new Var(this.var)), new Nor(new Var(this.var), new Var(this.var)));
     }
 
+    @Override
+    public Expression simplify() {
+        return new Var(this.var);
+    }
 }

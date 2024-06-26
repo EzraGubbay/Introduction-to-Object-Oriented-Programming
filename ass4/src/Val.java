@@ -73,4 +73,9 @@ public class Val implements Expression {
     public Expression norify() {
         return new Val(this.value);
     }
+
+    @Override
+    public Expression simplify() {
+        return new Val(this.value);
+    }
 }

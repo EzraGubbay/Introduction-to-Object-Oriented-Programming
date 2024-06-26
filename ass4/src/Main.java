@@ -50,15 +50,15 @@ public class Main {
         Expression e = new Xnor(new Nand(new Var("x"), new Val(false)),
                 new Not(new And(new Or(new Var("x"), new Var("y")),
                         new Xor(new Val(true), new Var("z")))));
-        /*System.out.println(e);
-        System.out.println("Should print: ((x A F) # ~((x v y) ^ (T ⊕ z)))\n");
+        System.out.println(e);
+        System.out.println("Should print: ((x A F) # ~((x | y) & (T ^ z)))\n");
         System.out.println("After simplification: " + e.simplify());
-        System.out.println("Should print: (T # ~(((x v y) ^ ~(z))))\n");
+        System.out.println("Should print: (T # ~(((x | y) & ~(z))))\n");
         e = e.assign("y", new Val(false));
         System.out.println("After assigning y = false: " + e);
-        System.out.println("Should print: ((x A F) # ~((x v F) ^ (T ⊕ z)))\n");
+        System.out.println("Should print: ((x A F) # ~((x | F) & (T ^ z)))\n");
         System.out.println("After simplification: " + e.simplify());
-        System.out.println("Should print: (T # ~((x ^ ~(z))))\n");*/
+        System.out.println("Should print: (T # ~((x & ~(z))))\n");
         Map<String, Boolean> map = new HashMap<>();
         map.put("x", true);
         map.put("z", false);
@@ -69,6 +69,13 @@ public class Main {
             System.out.println("Error. Exception thrown during evaluation.");
         }
 
-
+        Expression a = new And(new Var("x"), new Var("y"));
+        Expression b = new Nand(new Val(true), a);
+        try {
+            System.out.println(b.evaluate());
+        } catch (Exception i) {
+//            i.printStackTrace();
+            System.out.println(i.getMessage());
+        }
     }
 }

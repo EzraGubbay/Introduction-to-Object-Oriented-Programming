@@ -7,9 +7,7 @@ public abstract class BaseExpression implements Expression {
     public abstract Boolean evaluate(Map<String, Boolean> assignment) throws Exception;
 
     @Override
-    public Boolean evaluate() throws Exception {
-        throw new MissingVariableMappingException();
-    }
+    public abstract Boolean evaluate() throws Exception;
 
     @Override
     public abstract List<String> getVariables();

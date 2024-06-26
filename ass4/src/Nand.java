@@ -16,7 +16,13 @@ public class Nand extends BinaryExpression {
 
     @Override
     public Boolean evaluate() throws Exception {
-        return super.evaluate();
+        Boolean left, right;
+        // Try evaluating left and right expressions, assuming they are only comprised of truth values.
+        // If one of the expressions has at least one variable, exception will be thrown here.
+        left = super.getLeft().evaluate();
+        right = super.getRight().evaluate();
+        // Nand operator logic.
+        return !(left && right);
     }
 
     @Override
@@ -47,5 +53,40 @@ public class Nand extends BinaryExpression {
          */
         Expression delegated = new Not(new And(super.getLeft(), super.getRight()));
         return delegated.norify();
+    }
+
+    @Override
+    public Expression simplify() {
+        Expression simpleLeft = super.getLeft().simplify();
+        Expression simpleRight = super.getRight().simplify();
+        Boolean simpleValue = null;
+
+        try {
+            simpleValue = simpleLeft.evaluate();
+        } catch (Exception e) {
+            // Left expression has at least one variable.
+        }
+
+        if (simpleValue != null) {
+            // Left expression evaluates to a truth value as it has no variables.
+            return simpleValue ? new Not(simpleRight).simplify() : new Val(true);
+        }
+
+        try {
+            simpleValue = simpleRight.evaluate();
+        } catch (Exception e) {
+            // Right expression has at least one variable.
+            // This means both expressions have variables.
+        }
+
+        if (simpleValue != null) {
+            // Right expression evaluates to a truth value as it has no variables.
+            return simpleValue ? new Not(simpleLeft).simplify() : new Val(true);
+        }
+
+        // Both expressions have variables.
+        // If they are equal, return false. Otherwise, return a new simplified expression.
+        return super.equals(simpleLeft, simpleRight) ? new Not(simpleLeft).simplify()
+                : new Nand(simpleLeft, simpleRight);
     }
 }

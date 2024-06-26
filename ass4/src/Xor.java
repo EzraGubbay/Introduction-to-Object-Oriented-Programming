@@ -17,7 +17,13 @@ public class Xor extends BinaryExpression {
 
     @Override
     public Boolean evaluate() throws Exception {
-        return super.evaluate();
+        Boolean left, right;
+        // Try evaluating left and right expressions, assuming they are only comprised of truth values.
+        // If one of the expressions has at least one variable, exception will be thrown here.
+        left = super.getLeft().evaluate();
+        right = super.getRight().evaluate();
+        // Xor operator logic.
+        return (left && !right) || (!left && right);
     }
 
     @Override
@@ -46,5 +52,39 @@ public class Xor extends BinaryExpression {
         return new Nor(new Nor(new Nor(super.getLeft().norify(), super.getLeft().norify()),
                 new Nor(super.getRight().norify(), super.getRight().norify())),
                 new Nor(super.getLeft().norify(), super.getRight().norify()));
+    }
+
+    @Override
+    public Expression simplify() {
+        Expression simpleLeft = super.getLeft().simplify();
+        Expression simpleRight = super.getRight().simplify();
+        Boolean simpleValue = null;
+
+        try {
+            simpleValue = simpleLeft.evaluate();
+        } catch (Exception e) {
+            // Left expression has at least one variable.
+        }
+
+        if (simpleValue != null) {
+            // Left expression evaluates to a truth value as it has no variables.
+            return simpleValue ? new Not(simpleRight).simplify() : simpleRight;
+        }
+
+        try {
+            simpleValue = simpleRight.evaluate();
+        } catch (Exception e) {
+            // Right expression has at least one variable.
+            // This means both expressions have variables.
+        }
+
+        if (simpleValue != null) {
+            // Right expression evaluates to a truth value as it has no variables.
+            return simpleValue ? new Not(simpleLeft).simplify() : simpleLeft;
+        }
+
+        // Both expressions have variables.
+        // If they are equal, return false. Otherwise, return a new simplified expression.
+        return super.equals(simpleLeft, simpleRight) ? new Val(false) : new Xor(simpleLeft, simpleRight);
     }
 }

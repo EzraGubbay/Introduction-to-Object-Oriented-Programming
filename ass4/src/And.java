@@ -14,7 +14,13 @@ public class And extends BinaryExpression {
 
     @Override
     public Boolean evaluate() throws Exception {
-        return super.evaluate();
+        Boolean left, right;
+        // Try evaluating left and right expressions, assuming they are only comprised of truth values.
+        // If one of the expressions has at least one variable, exception will be thrown here.
+        left = super.getLeft().evaluate();
+        right = super.getRight().evaluate();
+        // And operator logic.
+        return left && right;
     }
 
     @Override
@@ -29,7 +35,7 @@ public class And extends BinaryExpression {
 
     @Override
     public Expression assign(String var, Expression expression) {
-        return super.assign(var, expression);
+        return new And(super.getLeft().assign(var, expression), super.getRight().assign(var, expression));
     }
 
     @Override
@@ -42,5 +48,47 @@ public class And extends BinaryExpression {
     public Expression norify() {
         return new Nor(new Nor(super.getLeft().norify(), super.getLeft().norify()),
                 new Nor(super.getRight().norify(), super.getRight().norify()));
+    }
+
+    /**
+     * Rationale:
+     * Get simplified versions of left and right expressions.
+     * Try evaluating left.
+     * SUCCESS -> if left is true, return right, if left is false, return false.
+     * FAIL -> Try evaluating right. Similar success steps as before, but the opposite.
+     * FAIL -> Check equality. If equal, return left (arbitrary). Otherwise return And(simpleLeft, simpleRight).
+     */
+    @Override
+    public Expression simplify() {
+        Expression simpleLeft = super.getLeft().simplify();
+        Expression simpleRight = super.getRight().simplify();
+        Boolean simpleValue = null;
+
+        try {
+            simpleValue = simpleLeft.evaluate();
+        } catch (Exception e) {
+            // Left expression has at least one variable.
+        }
+
+        if (simpleValue != null) {
+            // Left expression evaluates to a truth value as it has no variables.
+            return simpleValue ? simpleRight : new Val(false);
+        }
+
+        try {
+            simpleValue = simpleRight.evaluate();
+        } catch (Exception e) {
+            // Right expression has at least one variable.
+            // This means both expressions have variables.
+        }
+
+        if (simpleValue != null) {
+            // Right expression evaluates to a truth value as it has no variables.
+            return simpleValue ? simpleLeft : new Val(false);
+        }
+
+        // Both expressions have variables.
+        // If they are equal, arbitrarily return the left expression, otherwise return a new simplified expression.
+        return super.equals(simpleLeft, simpleRight) ? simpleLeft : new And(simpleLeft, simpleRight);
     }
 }

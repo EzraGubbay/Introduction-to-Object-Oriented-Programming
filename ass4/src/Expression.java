@@ -55,4 +55,6 @@ public interface Expression {
      * @return The expression tree resulting from converting all the operations to the logical Nor operation.
      */
     Expression norify();
+
+    Expression simplify();
 }
