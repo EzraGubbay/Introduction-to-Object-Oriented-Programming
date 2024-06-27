@@ -11,6 +11,10 @@ public class Var implements Expression {
 
     private final String var;
 
+    /**
+     * Constructor.
+     * @param var - A string symbol representing this atomic variable.
+     */
     public Var(String var) {
         this.var = var;
     }
@@ -19,6 +23,7 @@ public class Var implements Expression {
      * Evaluate the expression using the variable values provided in the assignment, and return the result.
      * If the expression contains a variable which is not in the assignment, an exception is thrown.
      * @param assignment - A mapping of each variable in the expression to its truth value.
+     * @throws Exception - If evaluation cannot be completed, due to incorrect variable assignment
      * @return True if the expression evaluates to true, false otherwise.
      */
     @Override
@@ -26,8 +31,7 @@ public class Var implements Expression {
 
         if (!assignment.containsKey(this.var)) {
             throw new MissingVariableMappingException();
-        }
-        else {
+        } else {
             return assignment.get(this.var);
         }
     }
@@ -35,10 +39,11 @@ public class Var implements Expression {
     /**
      * A convenience method.
      * Like the `evaluate(assignment)` method above, but uses an empty assignment.
+     * @throws Exception - If evaluation cannot be completed, due to incorrect variable assignment
      * @return True if the expression evaluates to true, false otherwise.
      */
     @Override
-    public Boolean evaluate() throws Exception{
+    public Boolean evaluate() throws Exception {
         throw new MissingVariableMappingException();
     }
 
@@ -77,18 +82,28 @@ public class Var implements Expression {
         return new Var(this.var);
     }
 
+    /**
+     * Returns the expression tree resulting from converting all the operations to the logical Nand operation.
+     * @return The expression tree resulting from converting all the operations to the logical Nand operation.
+     */
     @Override
     public Expression nandify() {
         return new Var(this.var);
-        //return new Nand(new Nand(new Var(this.var), new Var(this.var)), new Nand(new Var(this.var), new Var(this.var)));
     }
 
+    /**
+     * Returns the expression tree resulting from converting all the operations to the logical Nor operation.
+     * @return The expression tree resulting from converting all the operations to the logical Nor operation.
+     */
     @Override
     public Expression norify() {
         return new Var(this.var);
-        //return new Nor(new Nor(new Var(this.var), new Var(this.var)), new Nor(new Var(this.var), new Var(this.var)));
     }
 
+    /**
+     * Returns a simplified version of the current expression.
+     * @return A simplified version of the current expression.
+     */
     @Override
     public Expression simplify() {
         return new Var(this.var);

@@ -60,11 +60,11 @@ Expression e = new Not(
 
 The tree is given below:
 
-![expression tree](../tree.svg)
+![expression tree](tree.svg)
 
 Note that all the nodes in the tree are expressions (according to the `Expression` interface):
 
-![expression tree](../etree.svg)
+![expression tree](etree.svg)
 
 Similarly, we could represent `(x & y) ^ T` as:
 
@@ -180,7 +180,7 @@ The implementation will make heavy use of recursion. For example, in order to ev
 You should also implement the abstract base classes `BaseExpression`, `UnaryExpression` and `BinaryExpression`, and have the different expression classes inherit from them, according to the
 following hierarchy:
 
-![UML class diagram](../uml.svg)
+![UML class diagram](uml.svg)
 
 Try to put shared code in the base classes instead of the leaf classes. Example for candidate methods
 that can be in the base classes are `Boolean evaluate()` and `List<String> getVariables()`.

@@ -9,6 +9,10 @@ import java.util.Map;
 public class Val implements Expression {
     private final boolean value;
 
+    /**
+     * Constructor.
+     * @param value - A boolean value representing the truth value of this atomic expression.
+     */
     public Val(boolean value) {
         this.value = value;
     }
@@ -17,6 +21,7 @@ public class Val implements Expression {
      * Evaluate the expression using the variable values provided in the assignment, and return the result.
      * If the expression contains a variable which is not in the assignment, an exception is thrown.
      * @param assignment - A mapping of each variable in the expression to its truth value.
+     * @throws Exception - If evaluation cannot be completed, due to incorrect variable assignment
      * @return True if the expression evaluates to true, false otherwise.
      */
     @Override
@@ -27,10 +32,11 @@ public class Val implements Expression {
     /**
      * A convenience method.
      * Like the `evaluate(assignment)` method above, but uses an empty assignment.
+     * @throws Exception - If evaluation cannot be completed, due to incorrect variable assignment
      * @return True if the expression evaluates to true, false otherwise.
      */
     @Override
-    public Boolean evaluate() throws Exception{
+    public Boolean evaluate() throws Exception {
         return this.value;
     }
 
@@ -64,16 +70,28 @@ public class Val implements Expression {
         return new Val(this.value);
     }
 
+    /**
+     * Returns the expression tree resulting from converting all the operations to the logical Nand operation.
+     * @return The expression tree resulting from converting all the operations to the logical Nand operation.
+     */
     @Override
     public Expression nandify() {
         return new Val(this.value);
     }
 
+    /**
+     * Returns the expression tree resulting from converting all the operations to the logical Nor operation.
+     * @return The expression tree resulting from converting all the operations to the logical Nor operation.
+     */
     @Override
     public Expression norify() {
         return new Val(this.value);
     }
 
+    /**
+     * Returns a simplified version of the current expression.
+     * @return A simplified version of the current expression.
+     */
     @Override
     public Expression simplify() {
         return new Val(this.value);

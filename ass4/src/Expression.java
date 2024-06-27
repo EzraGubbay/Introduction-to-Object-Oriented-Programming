@@ -6,12 +6,12 @@ import java.util.List;
  * ID: 209184308
  * Expression interface.
  */
-
 public interface Expression {
     /**
      * Evaluate the expression using the variable values provided in the assignment, and return the result.
      * If the expression contains a variable which is not in the assignment, an exception is thrown.
      * @param assignment - A mapping of each variable in the expression to its truth value.
+     * @throws Exception - If evaluation cannot be completed, due to incorrect variable assignment
      * @return True if the expression evaluates to true, false otherwise.
      */
     Boolean evaluate(Map<String, Boolean> assignment) throws Exception;
@@ -19,6 +19,7 @@ public interface Expression {
     /**
      * A convenience method.
      * Like the `evaluate(assignment)` method above, but uses an empty assignment.
+     * @throws Exception - If evaluation cannot be completed, due to incorrect variable assignment
      * @return True if the expression evaluates to true, false otherwise.
      */
     Boolean evaluate() throws Exception;
@@ -56,5 +57,9 @@ public interface Expression {
      */
     Expression norify();
 
+    /**
+     * Returns a simplified version of the current expression.
+     * @return A simplified version of the current expression.
+     */
     Expression simplify();
 }
