@@ -7,7 +7,7 @@ import geometry.Point;
 import geometry.Rectangle;
 import motion.Collidable;
 import motion.Velocity;
-import play.Game;
+import gameplay.Game;
 
 /**
  * Name: Ezra Gubbay.
@@ -32,7 +32,7 @@ public class Paddle implements Sprite, Collidable {
 
     /**
      * Sets the Paddle's GUI item.
-     * This is used to receive the keyboard from the GUI that play.Game is using, so Paddle can determine current keypress
+     * This is used to receive the keyboard from the GUI that gameplay.Game is using, so Paddle can determine current keypress
      * @param gui - The GUI object that Paddle should store.
      */
     public void setGUI(GUI gui) {
@@ -137,8 +137,8 @@ public class Paddle implements Sprite, Collidable {
     }
 
     /**
-     * Adds Paddle to the play.Game.
-     * @param g - The play.Game object representing the game we are currently playing.
+     * Adds Paddle to the gameplay.Game.
+     * @param g - The gameplay.Game object representing the game we are currently playing.
      */
     @Override
     public void addToGame(Game g) {

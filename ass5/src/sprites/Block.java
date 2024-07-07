@@ -5,9 +5,9 @@ import geometry.Point;
 import geometry.Rectangle;
 import motion.Collidable;
 import motion.Velocity;
-import play.Game;
-import play.HitListener;
-import play.HitNotifier;
+import gameplay.Game;
+import gameplay.HitListener;
+import gameplay.HitNotifier;
 
 import java.awt.Color;
 import java.util.List;
@@ -145,8 +145,8 @@ public class Block extends Rectangle implements Collidable, Sprite, HitNotifier 
     }
 
     /**
-     * Provide the block with the play.Game, so it can add itself to it.
-     * @param g - The play.Game object representing the game we are currently playing.
+     * Provide the block with the gameplay.Game, so it can add itself to it.
+     * @param g - The gameplay.Game object representing the game we are currently playing.
      */
     @Override
     public void addToGame(Game g) {

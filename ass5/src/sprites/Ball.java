@@ -6,7 +6,7 @@ import motion.CollisionInfo;
 import motion.GameEnvironment;
 import motion.Velocity;
 import geometry.Point;
-import play.Game;
+import gameplay.Game;
 import java.awt.Color;
 import java.util.Random;
 
@@ -140,8 +140,8 @@ public class Ball implements Sprite {
     }
 
     /**
-     * Provide the ball with the play.Game, so it can add itself to it.
-     * @param g - The play.Game object representing the game we are currently playing.
+     * Provide the ball with the gameplay.Game, so it can add itself to it.
+     * @param g - The gameplay.Game object representing the game we are currently playing.
      */
     @Override
     public void addToGame(Game g) {
@@ -173,8 +173,8 @@ public class Ball implements Sprite {
     }
 
     /**
-     * Notifies the Ball of its play.Game Environment.
-     * @param ge - The Ball's play.Game Environment.
+     * Notifies the Ball of its gameplay.Game Environment.
+     * @param ge - The Ball's gameplay.Game Environment.
      */
     public void setGameEnvironment(GameEnvironment ge) {
         this.ge = ge;

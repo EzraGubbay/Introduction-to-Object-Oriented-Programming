@@ -1,4 +1,4 @@
-package play;
+package gameplay;
 
 import biuoop.DrawSurface;
 import biuoop.GUI;
@@ -13,13 +13,13 @@ import java.util.ArrayList;
 /**
  * Name: Ezra Gubbay.
  * ID: 209184308
- * Description - The play.Game class. Represents a game, and can initialize and run the game.
+ * Description - The gameplay.Game class. Represents a game, and can initialize and run the game.
  * Manages passing of time in the game and notifying pieces to draw themselves.
  */
 public class Game {
 
     private final SpriteCollection sprites; // The collection of sprites in the game
-    private final GameEnvironment environment; // The play.Game's Environment for managing logic and collisions.
+    private final GameEnvironment environment; // The gameplay.Game's Environment for managing logic and collisions.
     private GUI gui;
     private Sleeper sleeper;
     private final Counter remainingBlocks;
@@ -39,7 +39,7 @@ public class Game {
     }
 
     /**
-     * Adds a collidable to the play.Game Environment's list of collidables.
+     * Adds a collidable to the gameplay.Game Environment's list of collidables.
      * @param c - A collidable to be added to the list
      */
     public void addCollidable(Collidable c) {
@@ -47,7 +47,7 @@ public class Game {
     }
 
     /**
-     * Adds a sprite to the play.Game's list of sprites.
+     * Adds a sprite to the gameplay.Game's list of sprites.
      * @param s - A sprite to be added to the list
      */
     public void addSprite(Sprite s) {
@@ -64,7 +64,7 @@ public class Game {
 
     /**
      * Accessor for GameEnvironment object.
-     * @return The play.Game's play.Game Environment.
+     * @return The gameplay.Game's gameplay.Game Environment.
      */
     public GameEnvironment getEnvironment() {
         return this.environment;

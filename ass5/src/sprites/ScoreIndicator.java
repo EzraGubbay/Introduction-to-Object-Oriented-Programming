@@ -1,9 +1,9 @@
 package sprites;
 
 import biuoop.DrawSurface;
-import play.Counter;
+import gameplay.Counter;
 import geometry.Point;
-import play.Game;
+import gameplay.Game;
 
 import java.awt.Color;
 

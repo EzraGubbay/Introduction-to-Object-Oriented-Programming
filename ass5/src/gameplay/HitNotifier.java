@@ -1,4 +1,4 @@
-package play;
+package gameplay;
 
 public interface HitNotifier {
 

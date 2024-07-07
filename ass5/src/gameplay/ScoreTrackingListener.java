@@ -1,4 +1,4 @@
-package play;
+package gameplay;
 
 import sprites.Block;
 import sprites.Ball;

@@ -1,4 +1,4 @@
-import play.Game;
+import gameplay.Game;
 
 /**
  * Name: Ezra Gubbay.

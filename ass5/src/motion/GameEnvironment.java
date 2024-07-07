@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Name: Ezra Gubbay.
  * ID: 209184308
- * Description - The play.Game Environment. Manages the logic in the game and calculates collision points for Ball.
+ * Description - The gameplay.Game Environment. Manages the logic in the game and calculates collision points for Ball.
  */
 public class GameEnvironment {
 

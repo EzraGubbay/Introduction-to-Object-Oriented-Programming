@@ -1,7 +1,7 @@
 package sprites;
 
 import biuoop.DrawSurface;
-import play.Game;
+import gameplay.Game;
 
 /**
  * Name: Ezra Gubbay.
@@ -22,8 +22,8 @@ public interface Sprite {
     void timePassed();
 
     /**
-     * Provide the sprite with the play.Game, so it can add itself to it as needed.
-     * @param g - The play.Game object representing the game we are currently playing.
+     * Provide the sprite with the gameplay.Game, so it can add itself to it as needed.
+     * @param g - The gameplay.Game object representing the game we are currently playing.
      */
     void addToGame(Game g);
 }
