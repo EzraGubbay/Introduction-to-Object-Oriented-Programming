@@ -3,7 +3,6 @@ package motion;
 import geometry.Point;
 import geometry.Rectangle;
 import sprites.Ball;
-import motion.Velocity;
 
 /**
  * Name: Ezra Gubbay.
@@ -21,6 +20,7 @@ public interface Collidable {
       * Notify the object that we collided with it at collisionPoint with a given velocity.
       * The return is the new velocity expected after the hit (based on
       * the force the object inflicted on us).
+      * @param hitter - The ball that is hitting the collidable.
       * @param collisionPoint - The point of the collision
       * @param currentVelocity - The balls current velocity
       * @return The new velocity the ball should have after the collision

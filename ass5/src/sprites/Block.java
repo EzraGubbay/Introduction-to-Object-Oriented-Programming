@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class Block extends Rectangle implements Collidable, Sprite, HitNotifier {
 
     private Color color;
-    private List<HitListener> hitListeners;
+    private final List<HitListener> hitListeners;
 
     /**
      * Parameter constructor.
@@ -37,11 +37,19 @@ public class Block extends Rectangle implements Collidable, Sprite, HitNotifier 
         this.hitListeners = new ArrayList<HitListener>();
     }
 
+    /**
+     * Subscribes a listener to this Block.
+     * @param hl - A HitListener that should be subscribed.
+     */
     @Override
     public void addHitListener(HitListener hl) {
         this.hitListeners.add(hl);
     }
 
+    /**
+     * Unsubscribes the listener from this Block.
+     * @param hl - A HitListener that should be unsubscribed.
+     */
     @Override
     public void removeHitListener(HitListener hl) {
         this.hitListeners.remove(hl);
@@ -71,6 +79,10 @@ public class Block extends Rectangle implements Collidable, Sprite, HitNotifier 
         this.color = color;
     }
 
+    /**
+     * Accessor method for this Block's color.
+     * @return This Block's color.
+     */
     public Color getColor() {
         return this.color;
     }
@@ -154,20 +166,33 @@ public class Block extends Rectangle implements Collidable, Sprite, HitNotifier 
         g.addCollidable(this);
     }
 
+    /**
+     * Notifies this Block's hit listeners that this Block has been hit by a ball with a different color.
+     * @param hitter - The ball that has hit this Block.
+     */
     protected void notifyHit(Ball hitter) {
         // Copy the list of listeners before iteration.
         List<HitListener> listeners = new ArrayList<>(this.hitListeners);
 
         // Iterate over the list of listeners, notifying each of the hit event.
-        for(HitListener hl: listeners) {
+        for (HitListener hl: listeners) {
             hl.hitEvent(this, hitter);
         }
     }
 
+    /**
+     * Checks if the color of a Ball that hit this Block matches the color of this Block or not.
+     * @param hitter - The Ball whose color must be compared.
+     * @return True if the Ball's color matches this Block's color, false otherwise.
+     */
     protected boolean ballColorMatch(Ball hitter) {
         return hitter.getColor() == this.color;
     }
 
+    /**
+     * Removes this Block from the Game.
+     * @param game - The game from which this Block should be removed.
+     */
     public void removeFromGame(Game game) {
         game.removeCollidable(this);
         game.removeSprite(this);

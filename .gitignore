@@ -8,3 +8,7 @@ ass3/.idea
 ass1/.idea
 .tmp.driveupload
 ass3/out
+build.xml
+ass5/build.xml
+ass5/checkstyle-8.44-all.jar
+ass5/biuoop.xml

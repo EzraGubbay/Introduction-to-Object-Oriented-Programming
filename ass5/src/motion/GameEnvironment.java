@@ -73,6 +73,10 @@ public class GameEnvironment {
         return closestCollision;
     }
 
+    /**
+     * Removes a collidable from the game environment's list of collidables.
+     * @param c - The collidable that should be removed.
+     */
     public void removeCollidable(Collidable c) {
         this.collidables.remove(c);
     }

@@ -28,6 +28,10 @@ public class SpriteCollection {
         sprites.add(s);
     }
 
+    /**
+     * Removes a Sprite from the Sprite collection.
+     * @param s - A Sprite to be removed from the collection.
+     */
     public void removeSprite(Sprite s) {
         this.sprites.remove(s);
     }

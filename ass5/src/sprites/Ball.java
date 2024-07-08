@@ -112,11 +112,19 @@ public class Ball implements Sprite {
         return this.velocity;
     }
 
-    public Color getColor(){
+    /**
+     * Accessor method for the Ball's color attribute.
+     * @return The Ball's color.
+     */
+    public Color getColor() {
         return this.color;
     }
 
-    public void setColor(Color color){
+    /**
+     * Modifier method for the Ball's color attribute.
+     * @param color - The new color to be assigned to the Ball's color.
+     */
+    public void setColor(Color color) {
         this.color = color;
     }
 
@@ -149,6 +157,10 @@ public class Ball implements Sprite {
         this.ge = g.getEnvironment();
     }
 
+    /**
+     * Removes this ball from the given game.
+     * @param g - The game that the Ball should be removed from.
+     */
     public void removeFromGame(Game g) {
         g.removeSprite(this);
     }

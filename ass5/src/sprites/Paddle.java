@@ -26,13 +26,13 @@ public class Paddle implements Sprite, Collidable {
      * creates a delegated Block to manage similar functionalities related to rectangles, drawing, and collision.
      */
     public Paddle() {
-        // DEBUG original width is 80
-        this.delegatedBlock = new Block(new Point(374, 560), 600, 30);
+        this.delegatedBlock = new Block(new Point(374, 560), 80, 30);
     }
 
     /**
      * Sets the Paddle's GUI item.
-     * This is used to receive the keyboard from the GUI that gameplay.Game is using, so Paddle can determine current keypress
+     * This is used to receive the keyboard from the GUI that gameplay.Game is using,
+     * so Paddle can determine current keypress
      * @param gui - The GUI object that Paddle should store.
      */
     public void setGUI(GUI gui) {
@@ -46,7 +46,7 @@ public class Paddle implements Sprite, Collidable {
     public void moveLeft() {
         double x = this.delegatedBlock.getUpperLeft().getX() - movementSpeed;
         double y = this.delegatedBlock.getUpperLeft().getY();
-        if (x > -90) {
+        if (x > 10) {
             this.delegatedBlock.setUpperLeft(new Point(x, y));
         } else {
             this.delegatedBlock.setUpperLeft(new Point(790 - this.delegatedBlock.getWidth(), y));
@@ -60,7 +60,7 @@ public class Paddle implements Sprite, Collidable {
     public void moveRight() {
         double x = this.delegatedBlock.getUpperLeft().getX() + movementSpeed;
         double y = this.delegatedBlock.getUpperLeft().getY();
-        if (x < 890 - this.delegatedBlock.getWidth()) {
+        if (x < 790 - this.delegatedBlock.getWidth()) {
             this.delegatedBlock.setUpperLeft(new Point(x, y));
         } else {
             this.delegatedBlock.setUpperLeft(new Point(10, y));

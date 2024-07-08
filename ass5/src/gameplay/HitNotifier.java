@@ -1,5 +1,11 @@
 package gameplay;
 
+/**
+ * Name: Ezra Gubbay
+ * ID: 209184308
+ * Description - The HitNotifier interface. Represents objects that can subscribe to event listeners that listen
+ * for the subscribing object being hit.
+ */
 public interface HitNotifier {
 
     /**

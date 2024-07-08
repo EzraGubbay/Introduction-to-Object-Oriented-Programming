@@ -3,6 +3,11 @@ package gameplay;
 import sprites.Block;
 import sprites.Ball;
 
+/**
+ * Name: Ezra Gubbay
+ * ID: 209184308
+ * Description - The HitListener interface. Represents event listeners that listen for subscribed objects being hit.
+ */
 public interface HitListener {
 
     /**

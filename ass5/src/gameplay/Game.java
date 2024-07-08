@@ -4,7 +4,13 @@ import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
 import geometry.Point;
-import sprites.*;
+import sprites.Ball;
+import sprites.Sprite;
+import sprites.Block;
+import sprites.DeathRegion;
+import sprites.ScoreIndicator;
+import sprites.SpriteCollection;
+import sprites.Paddle;
 import motion.GameEnvironment;
 import motion.Collidable;
 import java.awt.Color;
@@ -54,10 +60,18 @@ public class Game {
         this.sprites.addSprite(s);
     }
 
+    /**
+     * Removes a collidable object from the game.
+     * @param c - The collidable object that should be removed.
+     */
     public void removeCollidable(Collidable c) {
         this.environment.removeCollidable(c);
     }
 
+    /**
+     * Removes a sprite from the game.
+     * @param s - The sprite that should be removed.
+     */
     public void removeSprite(Sprite s) {
         this.sprites.removeSprite(s);
     }
@@ -156,7 +170,7 @@ public class Game {
             this.gui.show(d);
 
             // Check if all blocks or balls have been removed. If so, stop the game.
-            if(this.remainingBlocks.getValue() == 0 || this.availableBalls.getValue() == 0) {
+            if (this.remainingBlocks.getValue() == 0 || this.availableBalls.getValue() == 0) {
                 // Handle frame timing to make sure last block/ball disappearing and score update shown to the player.
                 long usedTime = System.currentTimeMillis() - startTime;
                 long millisecondsLeftToSleep = millisecondsPerFrame - usedTime;
