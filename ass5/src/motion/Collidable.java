@@ -16,6 +16,16 @@ public interface Collidable {
      */
     Rectangle getCollisionRectangle();
 
+    /**
+     * Notify the object that we collided with it at collisionPoint with a given velocity.
+     * The return is the new velocity expected after the hit (based on
+     * the force the object inflicted on us).
+     * @param collisionPoint - The point of the collision
+     * @param currentVelocity - The balls current velocity
+     * @return The new velocity the ball should have after the collision
+     */
+    Velocity hit(Point collisionPoint, Velocity currentVelocity);
+
      /**
       * Notify the object that we collided with it at collisionPoint with a given velocity.
       * The return is the new velocity expected after the hit (based on

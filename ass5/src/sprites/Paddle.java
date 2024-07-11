@@ -26,7 +26,7 @@ public class Paddle implements Sprite, Collidable {
      * creates a delegated Block to manage similar functionalities related to rectangles, drawing, and collision.
      */
     public Paddle() {
-        this.delegatedBlock = new Block(new Point(374, 560), 80, 30);
+        this.delegatedBlock = new Block(new Point(374, 560), 100, 30);
     }
 
     /**
@@ -106,6 +106,41 @@ public class Paddle implements Sprite, Collidable {
      * Notifies Paddle that a Ball has hit it.
      * If the Ball collided with Paddle from the top, it bounces in a different angle, depending on the region
      * of the collision.
+     * @param collisionPoint - The point of the collision
+     * @param currentVelocity - The balls current velocity
+     * @return - The new velocity of the ball.
+     */
+    @Override
+    public Velocity hit(Point collisionPoint, Velocity currentVelocity) {
+        double dx = currentVelocity.getDx(), dy = currentVelocity.getDy();
+        // First check if this a horizontal collision
+        if (Point.threshold(collisionPoint.getX(), this.delegatedBlock.getUpperLeft().getX())
+                || Point.threshold(collisionPoint.getX(),
+                this.delegatedBlock.getUpperLeft().getX() + this.delegatedBlock.getWidth())) {
+            // Collision is horizontal
+            dx = -1 * currentVelocity.getDx();
+            return new Velocity(dx, dy);
+        }
+
+        // Otherwise, this is a vertical collision, and we must calculate in which region the collision happened.
+        int region = this.getCollisionRegionMultiplier(collisionPoint.getX());
+        if (region == 3) {
+            // The collision is in region three. In this case, we return the same velocity as a regular Block would,
+            // so we will simply delegate this to our Block attribute.
+            return this.delegatedBlock.hit(collisionPoint, currentVelocity);
+        }
+
+        // We are adding 180 degrees to the region multiple of 30, as the vertical axis is flipped in the computer GUI.
+        double angle = 180 + region * 30;
+        double speed = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)); // Pythagorean theorem for calculating the speed.
+        return Velocity.fromAngleAndSpeed(angle, speed);
+    }
+
+    /**
+     * Notifies Paddle that a Ball has hit it.
+     * If the Ball collided with Paddle from the top, it bounces in a different angle, depending on the region
+     * of the collision.
+     * @param hitter - The ball that is colliding with the Paddle.
      * @param collisionPoint - The point of the collision
      * @param currentVelocity - The balls current velocity
      * @return - The new velocity of the ball.

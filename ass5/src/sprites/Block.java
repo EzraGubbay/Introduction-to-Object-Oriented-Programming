@@ -130,6 +130,35 @@ public class Block extends Rectangle implements Collidable, Sprite, HitNotifier 
      * @return The new velocity the ball should have after the collision
      */
     @Override
+    public Velocity hit(Point collisionPoint, Velocity currentVelocity) {
+        double dx = currentVelocity.getDx(), dy = currentVelocity.getDy();
+        // Check if the collisionPoint hit Block horizontally or vertically.
+        // We are checking both statement separately - this resolves an edge case where the Ball collides with a corner,
+        // In this case, it should return exactly the way it came - velocity will be flipped in both directions.
+        if (Point.threshold(collisionPoint.getX(), this.getUpperLeft().getX())
+                || Point.threshold(collisionPoint.getX(), this.getUpperLeft().getX() + this.getWidth())) {
+            // Collision is horizontal
+            dx = -1 * currentVelocity.getDx();
+        }
+        if (Point.threshold(collisionPoint.getY(), this.getUpperLeft().getY())
+                || Point.threshold(collisionPoint.getY(), this.getUpperLeft().getY() + this.getHeight())) {
+            // Collision is vertical
+            dy = -1 * currentVelocity.getDy();
+        }
+
+        return new Velocity(dx, dy);
+    }
+
+    /**
+     * Notify the object that we collided with it at collisionPoint with a given velocity.
+     * The return is the new velocity expected after the hit (based on the force the object inflicted on us).
+     *
+     * @param hitter - The ball that is hitting the collidable.
+     * @param collisionPoint  - The point of the collision
+     * @param currentVelocity - The balls current velocity
+     * @return The new velocity the ball should have after the collision
+     */
+    @Override
     public Velocity hit(Ball hitter, Point collisionPoint, Velocity currentVelocity) {
         double dx = currentVelocity.getDx(), dy = currentVelocity.getDy();
         // Check if the collisionPoint hit Block horizontally or vertically.
